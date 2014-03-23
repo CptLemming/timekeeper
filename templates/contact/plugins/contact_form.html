@@ -1,0 +1,34 @@
+<div class="row contact-form-plugin">
+	<div class="large-6 medium-6 columns">
+		<form action="" method="post" id="contact_form">
+			{% csrf_token %}
+			{% if is_sent %}
+				<div class="">
+					<p>{{ instance.complete_message }}</p>
+				</div>
+			{% endif %}
+
+			{% include "website/forms.html" with form=form %}
+
+			<input type="submit" class="button">
+		</form>
+	</div>
+
+	<div class="large-6 medium-6 columns">
+		{% if instance.title %}<h3>{{ instance.title }}</h3>{% endif %}
+		{% if instance.description %}<p>{{ instance.description }}</p>{% endif %}
+
+		{% if instance.social_title %}<h3>{{ instance.social_title }}</h3>{% endif %}
+		<ul>
+			<li><a class="fa fa-facebook" href="{{ instance.social_facebook }}">Facebook</a></li>
+			<li><a class="fa fa-twitter" href="{{ instance.social_twitter }}">Twitter</a></li>
+		</ul>
+
+		{% if instance.contact_title %}<h3>{{ instance.contact_title }}</h3>{% endif %}
+		<ul>
+			{% if instance.email %}<li><a href="mailto:{{ instance.email }}" class="fa fa-envelope">{{ instance.email }}</a></li>{% endif %}
+			{% if instance.telephone %}<li><span class="fa fa-phone">{{ instance.telephone }}</span></li>{% endif %}
+			{% if instance.address %}<span class="fa fa-map-marker">{{ instance.address }}</span></li>{% endif %}
+		</ul>
+	</div>
+</div>

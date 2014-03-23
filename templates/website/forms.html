@@ -1,0 +1,30 @@
+{% csrf_token %}
+
+{% if form.non_field_errors %}
+<div class="form_errors">
+    {% for err in form.non_field_errors %}
+  <div class="form_error_message">{{ err }}</div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{{ form.non_field_errors }}
+
+{% for field in form.visible_fields %}
+    <div class="row">
+        <div class="large-12 columns">
+
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <label class="error">{{ field.label_tag }}</label>
+                    {{ field }}
+                    <small class="error">{{ error|escape }}</small>
+                {% endfor %}
+            {% else %}
+                <label>{{ field.label_tag }}</label>
+                {{ field }}
+            {% endif %}
+
+        </div>
+    </div>
+{% endfor %}

@@ -1,0 +1,98 @@
+{% load compress %}
+{% load cms_tags %}
+{% load menu_tags %}
+{% load sekizai_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="{% page_attribute meta_description %}">
+	<meta name="keywords" content="{% page_attribute meta_keywords %}">
+	<title>{% page_attribute page_title %}</title>
+
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}foundation/css/foundation.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}fontawesome/css/font-awesome.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
+    {% endcompress %}
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-XXXXX-X']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</head>
+
+<body class="{% block bodyclass %}{% endblock %} {% page_attribute 'slug' %}">
+    <header role="banner" class="page-header">
+        <div class="contain-to-grid">
+            <nav class="top-bar" data-topbar>
+                <ul class="title-area">
+                    <li class="name">
+                        <a href="/"><img src="{{ STATIC_URL }}images/zensation_logo.png"></a>
+                    </li>
+                    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+                </ul>
+
+                <section class="top-bar-section">
+                    <ul class="right">
+                        {% show_menu 0 0 0 0 'website/menu.html' %}
+                    </ul>
+                </section>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main" class="page-main">
+		{% block page_title_wrapper %}
+			{% if not current_page.is_home %}
+				<div class="row">
+					<div class="large-12 columns">
+						<h1>{% block page_title %}{% page_attribute "page_title" %}{% endblock page_title %}</h1>
+					</div>
+				</div>
+			{% endif %}
+		{% endblock page_title_wrapper %}
+
+        {% block content %}{% endblock content %}
+    </main>
+
+    <footer class="page-footer">
+        <div class="row">
+            <div class="large-4 medium-4 small-6 columns menu">
+                <nav>
+                    <ul>
+                        {% show_menu 0 0 0 0 %}
+                    </ul>
+                </nav>
+            </div>
+            <div class="large-4 medium-4 small-6 columns">
+                <ul>
+                    <li><a href="#"><span class="fa fa-facebook"></span>Facebook</a></li>
+                    <li><a href="#"><span class="fa fa-twitter"></span>Twitter</a></li>
+                    <li><a href="mailto:info@calmzensation.co.uk"><span class="fa fa-envelope"></span>info@calmzensation.co.uk</a></li>
+                    <li><span class="fa fa-phone"></span>077 7777 7777</li>
+                    <li><span class="fa fa-mobile-phone"></span>077 7777 7777</li>
+                </ul>
+            </div>
+            <div class="large-4 medium-4 small-12 columns arrow-up">
+                <a href="#"><span class="fa fa-arrow-up"></span></a>
+            </div>
+        </div>
+    </footer>
+
+    {% compress js %}
+        <script src="{{ STATIC_URL }}js/jquery-2.1.0.js"></script>
+        <script src="{{ STATIC_URL }}foundation/js/foundation.min.js"></script>
+        <script src="{{ STATIC_URL }}js/common.js"></script>
+    {% endcompress %}
+    {% render_block "js" %}
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends 'layouts/one_column.html' %}
+{% load cms_tags %}
+{% load menu_tags %}
+
+{% block page_title_wrapper %}{% endblock page_title_wrapper %}
+
+{% block content %}
+    <div class="row main">
+        <div class="large-12 columns">
+            <dl class="submenu tabs">
+                {% show_menu 1 1 1 1 'website/submenu.html' %}
+            </dl>
+			<h1>{% block page_title %}{% page_attribute "page_title" %}{% endblock page_title %}</h1>
+            {% placeholder column1 %}
+            {% block column1 %}{% endblock column1 %}
+        </div>
+    </div>
+{% endblock content %}
